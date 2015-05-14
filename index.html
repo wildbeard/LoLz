@@ -9,6 +9,9 @@
         
         <link rel="stylesheet" href="res/css/bootstrap.min.css" media="screen">
         <style>
+            .table {
+                margin-top: 15px;   
+            }
             .form-control.auto {
                 width: auto;   
             }
@@ -17,6 +20,11 @@
             }
             .victory-false {
                 background-color: #f2dede;
+            }
+            .bg-redhead {
+                padding: 5px 15px;
+                color: #fff;
+                background: #db2336;  
             }
         </style>
         
@@ -32,11 +40,15 @@
     
         <div class="container" ng-controller="SearchCtrl">
             
-            <h1>Stuff</h1>
+            <h1>LoLz</h1>
         
             <div class="row">
             
-                <div class="col-md-12">
+                <div class="col-md-8">
+                    <p class="bg-redhead" style="display: none;"></p>
+                </div>
+                
+                <div class="col-md-4">
                     
                     <div class="clearfix">
                         <form class="form-inline pull-right">
@@ -45,10 +57,15 @@
                         </form>
                     </div>
                     
+                </div>
+                
+                <div class="col-md-12">
+                    
                     <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Match Type</th>
+                                <th>Champion</th>
                                 <th>K/D/A</th>
                                 <th>Date Played | Duration</th>
                                 <th>Minions Killed</th>
@@ -56,9 +73,10 @@
                         </thead>
                         <tr class="victory-{{item.stats.win}}" ng-repeat="item in searchResults">
                             <td>{{item.subType}}</td>
-                            <td>{{item.stats.championsKilled}} / {{item.stats.numDeaths}} / {{item.stats.assists}}</td>
+                            <td>{{item.championId}}</td>
+                            <td>{{item.stats.championsKilled}} / {{item.stats.numDeaths}} / {{item.stats.assists == null ? 0 : item.stats.assists}}</td>
                             <td>{{item.createDate | date: 'MM/dd/yyyy'}} | {{matchLength(item.stats.timePlayed)}}</td>
-                            <td>{{item.stats.minionsKilled}}</td>
+                            <td>{{item.stats.minionsKilled + item.stats.neutralMinionsKilled}}</td>
                         </tr>
                     </table>
                 
